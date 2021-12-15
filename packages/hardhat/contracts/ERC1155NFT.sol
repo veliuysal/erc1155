@@ -6,6 +6,7 @@ import "@openzeppelin/contracts/token/ERC1155/ERC1155.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/math/SafeMath.sol";
 import "./ERC2981Collection.sol";
+import "@openzeppelin/contracts/utils/Strings.sol";
 
 contract ERC1155NFT is ERC1155, Ownable, ERC2981Collection {
     using SafeMath for uint256;
@@ -44,5 +45,11 @@ contract ERC1155NFT is ERC1155, Ownable, ERC2981Collection {
         bytes memory data
     ) external onlyContracts {
         _mintBatch(to, ids, amounts, data);
+    }
+
+    function uri(uint256 _id) override public view returns(string memory){
+        return string(
+            abi.encodePacked("",_id,".json")
+        );
     }
 }
